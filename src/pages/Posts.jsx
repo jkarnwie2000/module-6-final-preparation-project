@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 function Posts() {
+  let navigate = useNavigate();
   const { id } = useParams();
   const [posts, setPosts] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState();
   const [searchId, setSearchId] = React.useState(id);
 
   function onSearch() {
@@ -13,9 +14,16 @@ function Posts() {
   }
 
   async function fetchPosts(userId) {
+  setLoading(true)
   const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId || id}`);
   setPosts(data);
-  setLoading(false);    
+  setLoading(false);          
+  }
+
+  function onSearchKeyDown(key) {
+    if (key === "Enter") {
+      onSearch();
+    }
   }
 
   useEffect(() => { 
@@ -25,14 +33,14 @@ function Posts() {
   
   return (
     <>
-  <div className="post__search">
-    <button>← Back</button>
+  <div className="post__search">    
+     <button onClick={() => navigate("/")}>← Back</button>     
     <div className="post__search--container">
       <label className="post__search--label">Search by Id</label>
       <input type="number" 
       value={searchId} 
       onChange={(event) => setSearchId(event.target.value)}
-      onKeyDown={(event) => console.log(event.key)}
+      onKeyDown={(event) => onSearchKeyDown(event.key)}
       />
       <button onClick={() => onSearch()}>Enter</button>
     </div>
