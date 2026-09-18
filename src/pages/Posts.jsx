@@ -20,6 +20,12 @@ function Posts() {
   setLoading(false);
 }, [id]);
 
+function onSearchKeyDown(key) {
+  if (key === "Enter") {
+    onSearch();
+  }
+}
+
 function onSearch() {
   fetchPosts(searchId);
 }
