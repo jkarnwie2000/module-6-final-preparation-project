@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
@@ -26,10 +26,13 @@ function Posts() {
     }
   }
 
-  useEffect(() => { 
+  useEffect(() => {
+  async function fetchPosts() {
+    // move the existing fetchPosts code in here
+  }
   
   fetchPosts();
-  }, []);    
+  }, []);
   
   return (
     <>
