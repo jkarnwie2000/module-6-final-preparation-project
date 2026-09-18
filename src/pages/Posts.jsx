@@ -9,26 +9,24 @@ function Posts() {
   const [loading, setLoading] = React.useState();
   const [searchId, setSearchId] = React.useState(id);
 
-  function onSearch() {
-    fetchPosts(searchId)    
-  }  
+  const fetchPosts = React.useCallback(async (userId) => {
+  setLoading(true);
 
-  function onSearchKeyDown(key) {
-    if (key === "Enter") {
-      onSearch();
-    }
-  }
+  const { data } = await axios.get(
+    `https://jsonplaceholder.typicode.com/posts?userId=${userId || id}`
+  );
 
-  useEffect(() => {
-  async function fetchPosts(userId) {
-  setLoading(true)
-  const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId || id}`);
   setPosts(data);
-  setLoading(false);          
-  }
-  
+  setLoading(false);
+}, [id]);
+
+function onSearch() {
+  fetchPosts(searchId);
+}
+
+useEffect(() => {
   fetchPosts();
-  }, []);
+}, [fetchPosts]);
   
   return (
     <>
