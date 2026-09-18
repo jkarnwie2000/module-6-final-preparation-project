@@ -11,14 +11,7 @@ function Posts() {
 
   function onSearch() {
     fetchPosts(searchId)    
-  }
-
-  async function fetchPosts(userId) {
-  setLoading(true)
-  const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId || id}`);
-  setPosts(data);
-  setLoading(false);          
-  }
+  }  
 
   function onSearchKeyDown(key) {
     if (key === "Enter") {
@@ -27,8 +20,11 @@ function Posts() {
   }
 
   useEffect(() => {
-  async function fetchPosts() {
-    // move the existing fetchPosts code in here
+  async function fetchPosts(userId) {
+  setLoading(true)
+  const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId || id}`);
+  setPosts(data);
+  setLoading(false);          
   }
   
   fetchPosts();
