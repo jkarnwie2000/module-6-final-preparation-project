@@ -25,7 +25,7 @@ getUsers();
         <div className="user-card">
           <div className="user-card__container">
             <h3>{user.name}</h3>
-            <p>
+            <p className="user-card__email">
               <b>Email:</b>{user.email}</p>
             <p>
               <b>Phone:</b>{user.phone}</p>
