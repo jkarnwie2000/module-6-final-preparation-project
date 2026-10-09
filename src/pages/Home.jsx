@@ -17,6 +17,7 @@ getUsers();
  }, []);
     
   return (
+  <main>  
   <div className="container">
   <div className="row">
     <div className="user-list">
@@ -38,6 +39,7 @@ getUsers();
     </div>
   </div>
 </div>
+</main>
   )
 }
 
